@@ -33,24 +33,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 //      resources 하위 폴더 (css, js, img)는 무조건 접근이 가능해야하기 때문에 인증을 무시할 경로를 설정
-        @Bean
-        public WebSecurityCustomizer webSecurityCustomizer() {
-            return (web) -> { web.ignoring().antMatchers("/resources/**"); };
-        }
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> { web.ignoring().antMatchers("/resources/**", "/static/**", "/images/**"); };
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
+
                 .authorizeRequests()
-                .antMatchers("/", "/member/**", "/posts/read/**", "/posts/search/**")
-                .permitAll()
+                .antMatchers("/", "/member/**", "/posts/read/**", "/posts/search/**").permitAll()
+
                 .anyRequest()
                 .authenticated()
+
                 .and()
                 .formLogin()
                 .loginPage("/member/login")
                 .defaultSuccessUrl("/post/list")
+
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")
