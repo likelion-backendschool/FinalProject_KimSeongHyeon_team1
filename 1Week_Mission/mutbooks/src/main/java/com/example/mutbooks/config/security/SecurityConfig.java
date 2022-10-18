@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @RequiredArgsConstructor
@@ -31,12 +32,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(signInService).passwordEncoder(encoder());
     }
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-//        static 하위 폴더 (css, js, img)는 무조건 접근이 가능해야하기 때문에 인증을 무시할 경로를 설정
-        web
-                .ignoring().antMatchers( "/css/**", "/js/**", "/img/**");
-    }
+//      resources 하위 폴더 (css, js, img)는 무조건 접근이 가능해야하기 때문에 인증을 무시할 경로를 설정
+        @Bean
+        public WebSecurityCustomizer webSecurityCustomizer() {
+            return (web) -> { web.ignoring().antMatchers("/resources/**"); };
+        }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
