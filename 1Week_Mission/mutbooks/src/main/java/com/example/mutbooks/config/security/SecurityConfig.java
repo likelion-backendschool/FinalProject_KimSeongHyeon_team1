@@ -1,5 +1,6 @@
 package com.example.mutbooks.config.security;
 
+import com.example.mutbooks.domain.member.service.MemberLoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
