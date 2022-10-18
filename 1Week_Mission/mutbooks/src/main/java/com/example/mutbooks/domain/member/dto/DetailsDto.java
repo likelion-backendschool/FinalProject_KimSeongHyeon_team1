@@ -14,7 +14,7 @@ import java.util.Collection;
  * */
 @AllArgsConstructor
 /* member 권한만을 필요로 하지만 다 구현해줘야 에러가 안뜬다. */
-/* dto인지 확실하지 않다. 어느 디렉토리에 둬야할지 애매하다. */
+/* dto인지 확실하지 않다. 어느 디렉토리에 둬야할지 모르겠다. */
 public class DetailsDto implements UserDetails {
 
     private final Member member;

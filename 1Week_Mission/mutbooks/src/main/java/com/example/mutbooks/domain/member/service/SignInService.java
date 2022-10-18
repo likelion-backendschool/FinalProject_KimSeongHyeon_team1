@@ -1,5 +1,6 @@
 package com.example.mutbooks.domain.member.service;
 
+import com.example.mutbooks.domain.member.dto.DetailsDto;
 import com.example.mutbooks.domain.member.dto.SessionDto;
 import com.example.mutbooks.domain.member.entity.Member;
 import com.example.mutbooks.domain.member.repository.MemberRepository;
@@ -29,6 +30,6 @@ public class SignInService implements UserDetailsService {
         session.setAttribute("user", new SessionDto(member));
 
         /* 시큐리티 세션에 유저 정보 저장 */
-        return new MemberDetails(member);
+        return new DetailsDto(member);
     }
 }
