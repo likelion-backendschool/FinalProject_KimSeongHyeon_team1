@@ -7,7 +7,7 @@ import lombok.Getter;
 import java.io.Serializable;
 
 @Getter
-public class MemberSessionDto implements Serializable {
+public class SessionDto implements Serializable {
     private String username;
     private String password;
     private String nickname;
@@ -15,7 +15,7 @@ public class MemberSessionDto implements Serializable {
     private Role role;
 
     /* Entity -> Dto */
-    public MemberSessionDto(Member member) {
+    public SessionDto(Member member) {
         this.username = member.getUsername();
         this.password = member.getPassword();
         this.nickname = member.getNickname();

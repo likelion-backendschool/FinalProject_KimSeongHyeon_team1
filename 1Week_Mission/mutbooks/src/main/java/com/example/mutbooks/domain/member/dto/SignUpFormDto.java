@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MemberLoginFormDto {
+public class SignUpFormDto {
     private String username;
 
     private String password;

@@ -1,6 +1,6 @@
 package com.example.mutbooks.config.security;
 
-import com.example.mutbooks.domain.member.service.MemberLoginService;
+import com.example.mutbooks.domain.member.service.SignUpService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //특정 주소로 접근하면 권한 및 인증을 미리 체크하기 위해 사용
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final MemberLoginService memberLoginService;
+    private final SignUpService signUpService;
 
     @Bean
     public BCryptPasswordEncoder encoder() {
@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(memberLoginService).passwordEncoder(encoder());
+        auth.userDetailsService(signUpService).passwordEncoder(encoder());
     }
 
     @Override
