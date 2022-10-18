@@ -14,6 +14,8 @@ import javax.persistence.*;
 @Builder
 @Getter
 @Entity
+@Table(name = "members")
+/* 쿼리문은 나가지만, 테이블이 생성이 안될 경우 예약어일 가능성이 있음. */
 public class Member extends BaseEntity {
 
     @Id

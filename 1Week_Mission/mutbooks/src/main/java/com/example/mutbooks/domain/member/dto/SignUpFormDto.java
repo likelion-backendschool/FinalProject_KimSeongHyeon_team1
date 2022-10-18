@@ -7,17 +7,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class SignUpFormDto {
+    @NotEmpty(message = "아이디는 필수항목입니다.")
     private String username;
-
+    @NotEmpty(message = "비밀번호는 필수항목입니다.")
     private String password;
-
     private String nickname;
-
+    @NotEmpty(message = "이메일은 필수항목입니다.")
     private String email;
 
     private Role role;
