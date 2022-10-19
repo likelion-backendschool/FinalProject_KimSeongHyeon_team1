@@ -37,4 +37,10 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    /* 회원정보 수정 (필명, 비밀번호 변경 가능)*/
+    public void modify(String nickname, String password) {
+        this.nickname = nickname;
+        this.password = password;
+    }
 }

@@ -4,6 +4,7 @@ import com.example.mutbooks.domain.member.service.SignInService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,6 +23,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final SignInService signInService;
 
+    /* AuthenticationManager Bean 등록 */
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
     @Bean
     public BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
@@ -35,14 +43,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //      resources 하위 폴더 (css, js, img)는 무조건 접근이 가능해야하기 때문에 인증을 무시할 경로를 설정
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> { web.ignoring().antMatchers("/resources/**", "/static/**", "/images/**"); };
+        return (web) -> { web.ignoring().antMatchers("/resources/**", "/static/**", "/images/**", "/js/**"); };
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-
+                .csrf().ignoringAntMatchers("/api/**") /* REST API 사용 예외처리 */
+                .and()
                 .authorizeRequests()
                 .antMatchers("/", "/member/**", "/posts/read/**", "/posts/search/**").permitAll()
 
@@ -57,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")
-                .invalidateHttpSession(true);
+                .invalidateHttpSession(true).deleteCookies("JSESSIONID");
     }
 }
 

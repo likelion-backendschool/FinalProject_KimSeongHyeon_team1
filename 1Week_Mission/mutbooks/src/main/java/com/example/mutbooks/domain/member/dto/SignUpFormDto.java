@@ -14,6 +14,7 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 @Builder
 public class SignUpFormDto {
+    private Long id;
     @NotEmpty(message = "아이디는 필수항목입니다.")
     private String username;
     @NotEmpty(message = "비밀번호는 필수항목입니다.")
@@ -27,6 +28,7 @@ public class SignUpFormDto {
     /* DTO -> Entity */
     public Member toEntity() {
         Member member = Member.builder()
+                .id(id)
                 .username(username)
                 .password(password)
                 .nickname(nickname)
