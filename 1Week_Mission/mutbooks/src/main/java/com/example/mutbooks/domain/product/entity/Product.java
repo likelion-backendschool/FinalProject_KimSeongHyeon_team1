@@ -1,6 +1,7 @@
 package com.example.mutbooks.domain.product.entity;
 
 import com.example.mutbooks.domain.member.entity.Member;
+import com.example.mutbooks.domain.post.entity.PostKeyword;
 import com.example.mutbooks.global.BaseEntity;
 import lombok.*;
 
@@ -39,8 +40,7 @@ public class Product extends BaseEntity {
     @JoinColumn(name = "AUTHOR_ID")
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "POSTKEYWORD_ID")
-    private PostKeyword postKeyword;
+    @OneToMany(mappedBy = "product")     // 음식점 url 식별번호로 해당 음식점 메뉴들을 조회할 수 있다.
+    private List<PostKeyword> postKeywords = new ArrayList<>();
 }
 
