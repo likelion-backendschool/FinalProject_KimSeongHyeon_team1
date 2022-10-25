@@ -1,6 +1,7 @@
 package com.example.mutbooks.domain.product.controller;
 
 import com.example.mutbooks.domain.cart.entity.Cart;
+import com.example.mutbooks.domain.cart.service.CartService;
 import com.example.mutbooks.domain.product.dto.ProductDetailFormDto;
 import com.example.mutbooks.domain.product.entity.Product;
 import com.example.mutbooks.domain.product.service.ProductService;
@@ -19,6 +20,7 @@ import java.util.Optional;
 public class ProductController {
 
     private final ProductService productService;
+    private final CartService cartService;
 
     /*기본창*/
     @GetMapping("/product/list")
@@ -45,10 +47,10 @@ public class ProductController {
     public String saveCart(@PathVariable Long id, @ModelAttribute ProductDetailFormDto productDetailFormDto,
                            HttpServletRequest request, @CookieValue("userLogin") String userKey){
         HttpSession session = request.getSession(true);
-        String userNickname = session.getAttribute(userKey).toString();
+        String username = session.getAttribute(userKey).toString();
         Product product = productService.findById(id);
 
-        Cart cart = cartService.save(productDetailFormDto, userNickname, product);
+        Cart cart = cartService.save(productDetailFormDto, username, product);
 
         return "redirect:/" + storeSN + "/menu";
     }
