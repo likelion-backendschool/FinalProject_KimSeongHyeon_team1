@@ -1,0 +1,23 @@
+<html layout:decorate="~{layout}" xmlns="http://www.w3.org/1999/html">
+<div layout:fragment="content" class="container my-3">
+    <!-- 네비바-->
+    <div th:replace ="nav_bar :: nav_barFragment"></div>
+    <h2>도서목록페이지</h2>
+    <main class="flex-shrink-0">
+        <div class="container">
+            <div class="p-2"></div>
+            <div th:each="product : ${productList}" class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <a th:href="@{/product/{id}(id=${product.id})}" class="a-title">
+                        <h3 class="mb-0 title" style="padding-bottom: 10px;" th:text="${product.name}"></h3>
+                    </a>
+                    <div class="card-text mb-auto" th:text="${product.price}">
+                    </div>
+                    <div class="mb-1 text-muted" style="padding-top: 15px;" th:text="${#temporals.format(product.createdDate, 'yyyy-MM-dd')}"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</div>
+</html>
