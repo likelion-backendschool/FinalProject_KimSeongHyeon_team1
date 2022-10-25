@@ -35,7 +35,7 @@ public class ProductController {
 
 
         ProductDetailFormDto productDetailFormDto = productService.getProductFormById(product);
-        model.addAttribute("product", productService.detail(id));
+        model.addAttribute("productDetailFormDto", productDetailFormDto);
         return "post/post_detail";
     }
 }
