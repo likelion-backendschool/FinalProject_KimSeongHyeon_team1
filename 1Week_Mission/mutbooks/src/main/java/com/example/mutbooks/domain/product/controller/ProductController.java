@@ -1,14 +1,16 @@
 package com.example.mutbooks.domain.product.controller;
 
+import com.example.mutbooks.domain.cart.entity.Cart;
 import com.example.mutbooks.domain.product.dto.ProductDetailFormDto;
 import com.example.mutbooks.domain.product.entity.Product;
 import com.example.mutbooks.domain.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +38,18 @@ public class ProductController {
 
         ProductDetailFormDto productDetailFormDto = productService.getProductFormById(product);
         model.addAttribute("productDetailFormDto", productDetailFormDto);
-        return "post/post_detail";
+        return "product/product_detail";
+    }
+
+    @PostMapping("/product/{id}")
+    public String saveCart(@PathVariable Long id, @ModelAttribute ProductDetailFormDto productDetailFormDto,
+                           HttpServletRequest request, @CookieValue("userLogin") String userKey){
+        HttpSession session = request.getSession(true);
+        String userNickname = session.getAttribute(userKey).toString();
+        Product product = productService.findById(id);
+
+        Cart cart = cartService.save(productDetailFormDto, userNickname, product);
+
+        return "redirect:/" + storeSN + "/menu";
     }
 }

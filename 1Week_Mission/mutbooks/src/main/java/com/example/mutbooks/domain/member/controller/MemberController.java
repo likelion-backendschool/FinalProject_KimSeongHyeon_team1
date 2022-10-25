@@ -17,8 +17,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -52,7 +55,7 @@ public class MemberController {
 
     @PostMapping("/member/join")
     public String doSignUp(@Validated @ModelAttribute SignUpFormDto signUpFormDto,
-                           BindingResult bindingResult) {
+                           BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) {
 
         if (bindingResult.hasErrors()) {
             return "member/member_join";
@@ -67,6 +70,15 @@ public class MemberController {
         } catch (Exception e) {
             return "member/member_join";
         }
+
+        /* uuid로 쿠키값을 준 뒤 세션을 구분하기 위해 사용*/
+        UUID uuid = UUID.randomUUID();
+        Cookie cookie = new Cookie("userLogin", uuid.toString());
+        response.addCookie(cookie);
+
+        HttpSession session = request.getSession(true);
+        session.setAttribute(uuid.toString(), signUpFormDto.getUsername());
+
 
         return "redirect:login";
     }
