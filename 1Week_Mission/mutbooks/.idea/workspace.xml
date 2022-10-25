@@ -23,6 +23,14 @@
       </list>
     </option>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/example/mutbooks/domain/post/controller/PostController.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/example/mutbooks/domain/post/service/PostService.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/templates/post/post_detail.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/templates/post/post_list.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/templates/post/post_modify.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/templates/post/post_save.html" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="JpbToolWindowState">
     <option name="myId2FirstActivated">
       <map>
@@ -107,7 +115,7 @@
       <workItem from="1666130659888" duration="4573000" />
       <workItem from="1666135956080" duration="8442000" />
       <workItem from="1666151977799" duration="15746000" />
-      <workItem from="1666309535428" duration="1746000" />
+      <workItem from="1666309535428" duration="1227000" />
     </task>
     <servers />
   </component>
