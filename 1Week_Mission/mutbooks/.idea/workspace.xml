@@ -80,6 +80,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.example.mutbooks.global.aws" />
       <recent name="com.example.mutbooks.domain.member" />
       <recent name="com.example.mutbooks.config.security" />
     </key>
@@ -92,6 +93,9 @@
       <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/resources/images" />
       <recent name="$PROJECT_DIR$/src/main/resources/templates" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.mutbooks.global.aws" />
     </key>
   </component>
   <component name="RunManager">
@@ -116,7 +120,7 @@
       <workItem from="1666135956080" duration="8442000" />
       <workItem from="1666151977799" duration="15746000" />
       <workItem from="1666309535428" duration="1227000" />
-      <workItem from="1666685566802" duration="5473000" />
+      <workItem from="1666685566802" duration="6083000" />
     </task>
     <servers />
   </component>
