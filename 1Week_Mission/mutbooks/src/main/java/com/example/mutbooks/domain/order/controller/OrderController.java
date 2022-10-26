@@ -61,13 +61,7 @@ public class OrderController {
         OrderDtoFromCart orderDtoFromCart = orderHashMapCache.getOrderDtoFromCart(username);
         Order order = orderService.save(orderDtoFromCart, orderFormDto);
 
-        if (order.getPayType().equals(PayType.KAKAOPAY)) {
-            return "redirect:/kakaopay/" + order.getId();
-        } else if (order.getPayType().equals(PayType.CASH)) {
-            return "redirect:/cashPaySuccess/" + order.getId();
-        } else {
-            return null;
-        }
+        return "redirect:/order/" + order.getId() + "/pay";
     }
 
 }
