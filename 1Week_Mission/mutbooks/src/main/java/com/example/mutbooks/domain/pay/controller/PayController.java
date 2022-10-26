@@ -44,15 +44,15 @@ public class PayController {
         orderHashMapCache.removeOrderDtoFromCart(paySuccessDto.getUsername());
 
         model.addAttribute("paySuccessDto", paySuccessDto);
-        return "pay/kakaoPaySuccess";
+        return "pay/paySuccess";
     }
 
     /* 결제취소 */
     @GetMapping("/order/{orderId}/canclePay")
-    public String cancelKakaoPay(@PathVariable String storeSN, @PathVariable Long orderId) {
+    public String cancelKakaoPay(@PathVariable Long orderId) {
 
         payService.cancelKakaoPay(orderId);
         orderService.cancelOrderByUser(orderId);
-        return "redirect:/%s/cart".formatted(storeSN);
+        return "redirect:cart/cart_list";
     }
 }

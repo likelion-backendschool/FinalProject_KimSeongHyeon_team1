@@ -1,0 +1,45 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
+  <script>
+    $(function() {
+      let orderId = [[${paySuccessDto.orderId}]];
+      timer = setInterval( function () {
+        $.ajax ({
+          "url" : "/kakaopay/status/" + orderId,
+          cache : false,
+          success : function (html) {
+            $("#orderStatus").html(html);
+          }
+        });
+      }, 20000);
+    });
+  </script>
+
+  <div class="customer-page-name"><b>카카오페이 결제가 완료되었습니다.</b></div>
+  <div id="orderStatus">
+    <div th:text="${paySuccessDto.username} + '님의 주문'" class="h5 my-2"></div>
+    <div style="display : flex; justify-content : space-between;">
+      <div th:text="'주문 상태 : ' + ${paySuccessDto.orderStatus.getDescription()}">주문 상태</div>
+
+      <div th:if="${paySuccessDto.orderStatus.getDescription().toString().equals('주문접수전')}">
+        <a onclick="if ( !confirm('주문 취소를 수정하시겠습니까?') ) return false;" th:href="@{|/${paySuccessDto.storeSN}/kakaopay/cancel/${paySuccessDto.orderId}|}" class="button-blue button-outline delete">주문 취소</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-3">
+    <div class="card-body h-100 w-100">
+      <div th:each="order : ${paySuccessDto.orderHistory}" class="row">
+        <div class="order-head">
+          <span th:text="${order.product.name}">주문도서명</span>
+          <span th:text="${#numbers.formatInteger(order.product.price, 0, 'COMMA')} +' 원'">가격</span>
+        </div>
+        <div class="mb-3">
+          <small class="pt-1 float-end border-bottom" th:text="'수량 : ' + ${order.count} +' 개'">수량</small>
+        </div>
+      </div>
+      <div th:text="'총 금액 : ' + ${#numbers.formatInteger(paySuccessDto.orderTotalPrice, 0, 'COMMA')} + ' 원'" class="float-end">전체 가격</div>
+    </div>
+  </div>
+</div>
+</html>
