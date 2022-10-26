@@ -18,10 +18,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
-        <option value="Enum" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
+        <option value="Enum" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -98,6 +98,7 @@
       <recent name="$PROJECT_DIR$/src/main/resources/templates" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.mutbooks.domain.order.entity.enumulation" />
       <recent name="com.example.mutbooks.global.aws" />
     </key>
   </component>
@@ -123,7 +124,7 @@
       <workItem from="1666135956080" duration="8442000" />
       <workItem from="1666151977799" duration="15746000" />
       <workItem from="1666309535428" duration="1227000" />
-      <workItem from="1666685566802" duration="24567000" />
+      <workItem from="1666685566802" duration="25940000" />
     </task>
     <servers />
   </component>

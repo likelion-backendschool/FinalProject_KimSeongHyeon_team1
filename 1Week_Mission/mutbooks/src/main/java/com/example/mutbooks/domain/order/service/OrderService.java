@@ -4,7 +4,9 @@ import com.example.mutbooks.domain.cart.service.CartService;
 import com.example.mutbooks.domain.order.dto.OrderDtoFromCart;
 import com.example.mutbooks.domain.order.dto.OrderFormDto;
 import com.example.mutbooks.domain.order.entity.Order;
+import com.example.mutbooks.domain.order.entity.enumulation.OrderStatus;
 import com.example.mutbooks.domain.order.repository.OrderRepository;
+import com.example.mutbooks.domain.pay.entity.enumulation.PayStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,11 +26,11 @@ public class OrderService {
                 .orderType(orderDtoFromCart.getOrderType())
                 .orderedAt(LocalDateTime.now())
                 .requests(orderFormDto.getRequests())
-                .payStatus(PayStatus.CONTINUE)
-                .orderStatus(OrderStatus.BEFOREORDER)
+                .payStatus(PayStatus.BEFORE)
+                .orderStatus(OrderStatus.ORDERED)
                 .build();
 
-        order.setCreatedDate(LocalDateTime.now());
+        order.setCreatedDate(String.valueOf(LocalDateTime.now()));
         return orderRepository.save(order);
     }
 

@@ -46,6 +46,7 @@ public class OrderController {
 
         model.addAttribute("orderFormDto", new OrderFormDto());
         model.addAttribute("totalPrice", dto.getTotalPrice());
+        model.addAttribute("username", username);
 
         return "order/orderForm";
     }
