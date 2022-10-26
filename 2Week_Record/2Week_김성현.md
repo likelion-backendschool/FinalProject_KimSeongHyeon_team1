@@ -73,6 +73,26 @@ Spring boot + gradle + data JPA + Spring Security + mysql + ajax + Thymeleaf
 1. 주문조회는 결제가 완료되었거나 취소된 항목만 보여준다.
 2. 결제처리에서 id는 Order에 대한 것이라 생각했다. Order에 결제가 완료된 것에 한해 데이터가 담긴다. 그 후 취소가 가능하다.
 
+#### 📚도서목록페이지
+<img
+src="https://user-images.githubusercontent.com/53210680/197949081-706f4125-0d9b-475e-acd4-13f2bbf240bc.png"
+style="width:800px; height:400px;">
+
+#### 🛒장바구니페이지
+<img
+src="https://user-images.githubusercontent.com/53210680/197949040-ba26324d-961d-41d1-a2cc-03d74080f57b.png"
+style="width:800px; height:400px;">
+
+#### 주문페이지
+<img
+src="https://user-images.githubusercontent.com/53210680/197949220-5f1852bd-d9f6-4b23-a65e-39ae9f39ec91.png"
+style="width:800px; height:400px;">
+#### 카카오페이
+<img
+src="https://user-images.githubusercontent.com/53210680/197949285-fd07fe92-0554-4395-899e-072fe9157805.png"
+style="width:800px; height:400px;">
+
+###
 ---
 ### 이슈정리
 
@@ -84,7 +104,7 @@ https://sol-devlog.tistory.com/3
 
 3. 주문 데이터를 테이블에 담는 것이 아닌 별도의 클래스에 담았다.
 
-4. 결제하기를 누르면 카카오페이 결제창으로 넘어가기 전에 다음과 같은 오류메세지가 발생했다. 400 Bad Request: "{"msg":"approve_url(http://localhost:8080/6/paySuccess) does not match registered website domain.","code":-799}"
+4. 결제하기를 누르면 카카오페이 결제창으로 넘어가기 전에 다음과 같은 오류메세지가 발생했다. <br> 400 Bad Request: "{"msg":"approve_url(http://localhost:8080/6/paySuccess) does not match registered website domain.","code":-799}"
 -> 카카오페이 애플리케이션에서 web으로 도메인 등록으로 해결.
 
 ---
