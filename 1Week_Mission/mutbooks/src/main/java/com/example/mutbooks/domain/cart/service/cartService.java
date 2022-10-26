@@ -4,10 +4,12 @@ import com.example.mutbooks.domain.cart.dto.CartDto;
 import com.example.mutbooks.domain.cart.dto.CartListDto;
 import com.example.mutbooks.domain.cart.entity.Cart;
 import com.example.mutbooks.domain.cart.repository.CartRepository;
+import com.example.mutbooks.domain.order.entity.Order;
 import com.example.mutbooks.domain.product.dto.ProductDetailFormDto;
 import com.example.mutbooks.domain.product.entity.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,5 +76,25 @@ public class CartService {
         /*나중에 옵션추가할 수 있도록*/
         menuTotalPrice += price;
         return menuTotalPrice;
+    }
+    @Transactional
+    public void modifyIsOrdered(Order order) {
+
+        String username = order.getUsername();
+        List<Cart> carts = cartRepository.findByUsernameAndIsOrdered(username, false);
+
+        for (Cart cart : carts) {
+            cart.setOrdered(true);
+        }
+    }
+
+    /* 주문 취소 */
+    @Transactional
+    public void cancelOrder(String username) {
+        List<Cart> cartList= cartRepository.findByUsernameAndIsOrdered(username, true);
+
+        for (Cart cart : cartList) {
+            cart.setOrdered(false);
+        }
     }
 }

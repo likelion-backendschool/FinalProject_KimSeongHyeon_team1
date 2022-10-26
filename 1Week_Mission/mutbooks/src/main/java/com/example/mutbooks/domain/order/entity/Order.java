@@ -4,16 +4,14 @@ import com.example.mutbooks.domain.order.entity.enumulation.OrderStatus;
 import com.example.mutbooks.domain.order.entity.enumulation.OrderType;
 import com.example.mutbooks.domain.pay.entity.enumulation.PayStatus;
 import com.example.mutbooks.global.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
