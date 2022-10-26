@@ -1,4 +1,4 @@
-package com.example.mutbooks.config.security;
+package com.example.mutbooks.global.config.security;
 
 import com.example.mutbooks.domain.member.service.SignInService;
 import lombok.RequiredArgsConstructor;

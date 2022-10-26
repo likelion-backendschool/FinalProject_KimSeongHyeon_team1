@@ -43,6 +43,7 @@ public class ProductController {
         return "product/product_detail";
     }
 
+    /* 도서 장바구니 담기*/
     @PostMapping("/product/{id}")
     public String saveCart(@PathVariable Long id, @ModelAttribute ProductDetailFormDto productDetailFormDto,
                            HttpServletRequest request, @CookieValue("userLogin") String userKey){
@@ -52,6 +53,6 @@ public class ProductController {
 
         Cart cart = cartService.save(productDetailFormDto, username, product);
 
-        return "redirect:/" + storeSN + "/menu";
+        return "redirect:/menu/list";
     }
 }

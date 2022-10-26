@@ -1,4 +1,4 @@
-package com.example.mutbooks.config.web;
+package com.example.mutbooks.global.config.web;
 
 import com.example.mutbooks.domain.member.annotation.LoginUserArgumentResolver;
 import lombok.RequiredArgsConstructor;

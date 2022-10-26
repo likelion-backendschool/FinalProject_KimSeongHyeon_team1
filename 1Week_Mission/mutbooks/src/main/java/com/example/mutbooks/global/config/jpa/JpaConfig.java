@@ -1,4 +1,4 @@
-package com.example.mutbooks.config.jpa;
+package com.example.mutbooks.global.config.jpa;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
