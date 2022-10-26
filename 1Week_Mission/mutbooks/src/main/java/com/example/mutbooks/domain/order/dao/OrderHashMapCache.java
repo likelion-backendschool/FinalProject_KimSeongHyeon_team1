@@ -12,8 +12,8 @@ public class OrderHashMapCache {
 
     private final Map<String, OrderDtoFromCart> cache = new ConcurrentHashMap<>();
 
-    public void putOrderDtoFromCart(OrderDtoFromCart orderDtoFromCart, String userNickname) {
-        cache.put(userNickname, orderDtoFromCart);
+    public void putOrderDtoFromCart(OrderDtoFromCart orderDtoFromCart, String username) {
+        cache.put(username, orderDtoFromCart);
     }
 
     public OrderDtoFromCart getOrderDtoFromCart(String username) {

@@ -2,12 +2,12 @@ package com.example.mutbooks.domain.order.controller;
 
 import com.example.mutbooks.domain.order.dao.OrderHashMapCache;
 import com.example.mutbooks.domain.order.dto.OrderDtoFromCart;
+import com.example.mutbooks.domain.order.dto.OrderFormDto;
+import com.example.mutbooks.domain.order.entity.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,7 +18,7 @@ public class OrderController {
 
     private final OrderHashMapCache orderHashMapCache;
 
-    /*장바구니 담기*/
+    /*주문하기*/
     @PostMapping("/order/create")
     public String createOrderDtoFormCart(HttpServletRequest request, @CookieValue("userLogin") String userKey,
                                          @ModelAttribute OrderDtoFromCart orderDtoFromCart) {
@@ -28,6 +28,42 @@ public class OrderController {
         orderDtoFromCart.setUsername(username);
 
         orderHashMapCache.putOrderDtoFromCart(orderDtoFromCart, username);
-        return "redirect:/" + storeSN + "/pay";
+        return "redirect:/pay";
     }
+
+    /*결제하기*/
+    @GetMapping("/pay")
+    public String showOrder(HttpServletRequest request, @CookieValue("userLogin") String userKey,
+                            Model model) {
+
+        HttpSession session = request.getSession(true);
+        String username = session.getAttribute(userKey).toString();
+
+        OrderDtoFromCart dto = orderHashMapCache.getOrderDtoFromCart(username);
+
+        model.addAttribute("orderFormDto", new OrderFormDto());
+        model.addAttribute("totalPrice", dto.getTotalPrice());
+
+        return "order/orderForm";
+    }
+
+    @PostMapping("/pay")
+    public String doOrder(HttpServletRequest request,
+                          @CookieValue("userLogin") String userKey, @ModelAttribute OrderFormDto orderFormDto) {
+
+        HttpSession session = request.getSession(true);
+        String username = session.getAttribute(userKey).toString();
+
+        OrderDtoFromCart orderDtoFromCart = orderHashMapCache.getOrderDtoFromCart(username);
+        Order order = orderService.save(orderDtoFromCart, orderFormDto);
+
+        if (order.getPayType().equals(PayType.KAKAOPAY)) {
+            return "redirect:/kakaopay/" + order.getId();
+        } else if (order.getPayType().equals(PayType.CASH)) {
+            return "redirect:/cashPaySuccess/" + order.getId();
+        } else {
+            return null;
+        }
+    }
+
 }
