@@ -4,6 +4,7 @@ import com.example.mutbooks.domain.order.dao.OrderHashMapCache;
 import com.example.mutbooks.domain.order.dto.OrderDtoFromCart;
 import com.example.mutbooks.domain.order.dto.OrderFormDto;
 import com.example.mutbooks.domain.order.entity.Order;
+import com.example.mutbooks.domain.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +17,9 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class OrderController {
 
+    private final OrderService orderService;
     private final OrderHashMapCache orderHashMapCache;
+
 
     /*주문하기*/
     @PostMapping("/order/create")
