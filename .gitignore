@@ -426,3 +426,6 @@ gradle-app.setting
 
 #S3 키값 보호
 application.properties
+
+#카카오페이 키값 보호
+application-API-KEY.properties
