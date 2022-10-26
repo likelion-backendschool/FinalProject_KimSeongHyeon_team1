@@ -3,8 +3,10 @@ package com.example.mutbooks.domain.member.controller;
 import com.example.mutbooks.domain.member.annotation.LoginUser;
 import com.example.mutbooks.domain.member.dto.SessionDto;
 import com.example.mutbooks.domain.member.dto.SignUpFormDto;
+import com.example.mutbooks.domain.member.entity.Member;
 import com.example.mutbooks.domain.member.service.ModifyService;
 import com.example.mutbooks.domain.member.service.SignUpService;
+import com.example.mutbooks.global.annotation.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -29,11 +31,18 @@ import java.util.UUID;
 public class MemberController {
 
     private final SignUpService signUpService;
-    private final ModifyService modifyService;
 
     /* 로그인 후 메인화면*/
     @GetMapping("/home")
-    public String showHome(Model model) {
+    public String showHome(@CurrentUser Member member, Model model, HttpServletRequest request, HttpServletResponse response) {
+        /* uuid로 쿠키값을 준 뒤 세션을 구분하기 위해 사용*/
+        UUID uuid = UUID.randomUUID();
+        Cookie cookie = new Cookie("userLogin", uuid.toString());
+        response.addCookie(cookie);
+
+        HttpSession session = request.getSession(true);
+        session.setAttribute(uuid.toString(), member.getUsername());
+
         return "home";
     }
 
@@ -80,7 +89,7 @@ public class MemberController {
         session.setAttribute(uuid.toString(), signUpFormDto.getUsername());
 
 
-        return "redirect:login";
+        return "redirect:/home";
     }
     /* 회원정보 수정*/
     @GetMapping("/member/modify")

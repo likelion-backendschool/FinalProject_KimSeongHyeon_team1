@@ -1,7 +1,7 @@
 package com.example.mutbooks.domain.order.entity.enumulation;
 
 public enum OrderType {
-    BEFORE("주문 전"), ORDERED("주문완료");
+    BULK("일괄배송"), EACH("순차배송");
 
     private final String description;
 

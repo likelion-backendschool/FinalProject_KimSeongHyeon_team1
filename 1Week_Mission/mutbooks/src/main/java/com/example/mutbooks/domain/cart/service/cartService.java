@@ -61,9 +61,18 @@ public class CartService {
                     .cartId(cart.getId())
                     .product(cart.getProduct())
                     .count(cart.getCount())
+                    .eachMenuTotalPrice(calculateEachMenuTotalPrice(cart))
                     .build();
             cartDtoList.add(cartDto);
         }
         return cartDtoList;
+    }
+
+    public int calculateEachMenuTotalPrice(Cart cart) {
+        int menuTotalPrice = 0;
+        int price = cart.getProduct().getPrice();
+        /*나중에 옵션추가할 수 있도록*/
+        menuTotalPrice += price;
+        return menuTotalPrice;
     }
 }

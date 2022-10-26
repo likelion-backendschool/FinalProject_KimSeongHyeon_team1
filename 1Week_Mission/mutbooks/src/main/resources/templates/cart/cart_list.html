@@ -6,16 +6,35 @@
     <main class="flex-shrink-0">
         <div class="container">
             <div class="p-2"></div>
-            <div th:each="product : ${productList}" class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div th:each="cart : ${cartListDto.cartDtos}" class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                 <div class="col p-4 d-flex flex-column position-static">
-                    <a th:href="@{/product/{id}(id=${product.id})}" class="a-title">
-                        <h3 class="mb-0 title" style="padding-bottom: 10px;" th:text="${product.name}"></h3>
-                    </a>
-                    <div class="card-text mb-auto" th:text="${product.price}">
+                    <h3 class="mb-0 title" style="padding-bottom: 10px;" th:text="${cart.product.name}"></h3>
+                    <div class="card-text mb-auto" th:text="${cart.product.price}">
                     </div>
-                    <div class="mb-1 text-muted" style="padding-top: 15px;" th:text="${#temporals.format(product.createdDate, 'yyyy-MM-dd')}"></div>
+                    <div class="mb-1 text-muted" style="padding-top: 15px;" th:text="${#temporals.format(cart.product.createdDate, 'yyyy-MM-dd')}"></div>
+                    <div class="cart-red-name">
+                        <div style="display :flex;justify-content : space-between;">
+                            <span style="font-size: 13px">가격 : </span>
+                            <span style="font-size: 13px" class="cart-menu-price" th:text="|${#numbers.formatInteger(cart.eachMenuTotalPrice, 0, 'COMMA')} 원|">가격</span>
+                        </div>
+                        <div style="display :flex;justify-content : space-between;">
+                            <span style="font-size: 13px">수량 : </span>
+                            <span style="font-size: 13px" class="cart-menu-count" th:text="|${cart.count} 개|">개수</span>
+                        </div>
                 </div>
             </div>
+        </div>
+            <form th:action="@{|/order/create|}" th:object="${orderDtoFromCart}" method="post">
+                <h5 style="font-size: 18px" th:text="'총 주문 금액 : '+ ${#numbers.formatInteger(cartListDto.totalPrice, 0, 'COMMA')} + '원'" class="cart-total-price">전체 가격</h5>
+                <input type="hidden" style="font-size: 18px" th:name="totalPrice" th:value="${cartListDto.totalPrice}"/>
+                <div class="order-type">
+                    <div th:each="type : ${orderTypes}" class="order-type__item">
+                        <input type="radio" th:field="*{orderType}" th:value="${type.name()}" class="form-check-input"/>
+                        <span th:for="${#ids.prev('orderType')}" style="font-size: 14px" th:text="${type.description}" class="form-check-label"></span>
+                    </div>
+                </div>
+                <button type="submit" class="button-blue button-outline create float-right" style="font-size: 13px;">주문하기</button>
+            </form>
         </div>
     </main>
 

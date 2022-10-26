@@ -13,4 +13,5 @@ public class CartDto {
     private Long cartId;
     private Product product;
     private int count;
+    private int eachMenuTotalPrice;
 }

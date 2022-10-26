@@ -3,11 +3,13 @@ package com.example.mutbooks.domain.cart.controller;
 import com.example.mutbooks.domain.cart.dto.CartListDto;
 import com.example.mutbooks.domain.cart.service.CartService;
 import com.example.mutbooks.domain.order.dto.OrderDtoFromCart;
+import com.example.mutbooks.domain.order.entity.enumulation.OrderType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -30,4 +32,11 @@ public class CartController {
         model.addAttribute("orderDtoFromCart", new OrderDtoFromCart());
         return "cart/cart_list";
     }
+
+    @ModelAttribute("orderTypes")
+    public OrderType[] orderTypes() {
+        return OrderType.values();
+    }
+
+
 }
