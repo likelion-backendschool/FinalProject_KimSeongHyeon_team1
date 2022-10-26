@@ -70,7 +70,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/gimseonghyeon/Desktop/project/LikeLion_Final/1Week_Mission/mutbooks/src/main/java/com/example/mutbooks/domain/pay",
+    "last_opened_file_path": "/Users/gimseonghyeon/Desktop/project/LikeLion_Final/1Week_Mission/mutbooks/src/main/resources",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "project.propVCSSupport.Confirmation",
     "spring.configuration.checksum": "c03c948753a0aaeda158c8c70079af90"
@@ -88,9 +88,9 @@
       <recent name="com.example.mutbooks.config.security" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/java/com/example/mutbooks/domain/pay" />
       <recent name="$PROJECT_DIR$/src/main/resources/templates/post" />
-      <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/static" />
@@ -126,7 +126,7 @@
       <workItem from="1666151977799" duration="15746000" />
       <workItem from="1666309535428" duration="1227000" />
       <workItem from="1666685566802" duration="25940000" />
-      <workItem from="1666758500470" duration="2541000" />
+      <workItem from="1666758500470" duration="2923000" />
     </task>
     <servers />
   </component>
