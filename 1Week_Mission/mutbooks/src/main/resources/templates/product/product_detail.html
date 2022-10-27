@@ -1,0 +1,30 @@
+<html layout:decorate="~{layout}" xmlns="http://www.w3.org/1999/html">
+<div layout:fragment="content" class="container my-3">
+  <!-- 네비바-->
+  <div th:replace ="nav_bar :: nav_barFragment"></div>
+  <form th:action th:object="${productDetailFormDto}" method="post">
+  <h2>도서상세페이지</h2>
+  <main class="flex-shrink-0">
+    <div class="container">
+      <div class="p-2"></div>
+
+      <div class="g-2">
+        <div class="card-body">
+          <div class="info-top">
+            <!-- css추가하기 -->
+            <div th:text="*{name}" class="card-title h4" style="display: flex; justify-content: space-between; font-weight: bold ">도서명</div>
+            <div th:text="*{#numbers.formatInteger(price, 0, 'COMMA')} +'원'" class="card-title h4" style="display: flex; justify-content: space-between; font-weight: bold; color:rgba(224,102,102)">가격</div>
+          </div>
+          <div style="height : 30%;">
+            <p th:text="*{description}" class="card-text">도서 설명부분입니다.</p>
+          </div>
+        </div>
+        <button type="submit" class="button-blue button-outline create float-right btn-sm my-2">장바구니 담기</button>
+      </div>
+    </div>
+  </main>
+
+
+  </form>
+</div>
+</html>

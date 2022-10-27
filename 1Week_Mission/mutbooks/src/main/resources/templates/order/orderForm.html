@@ -1,0 +1,17 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
+    <!-- 네비바-->
+    <div th:replace ="nav_bar :: nav_barFragment"></div>
+    <h2>결제</h2>
+    <h5 th:text="${username} + '의 주문'"></h5>
+    <div>
+        <form th:action th:object="${orderFormDto}" method="POST">
+            <div class="mb-3">
+                <label class="requests customer-label-name"><b>요청 사항</b></label>
+                <textarea th:field="*{requests}" class="w-100" rows="5"/>
+            </div>
+            <input class="button-blue button-outline create w-100 my-3" type="submit" th:value="${#numbers.formatInteger(totalPrice, 0, 'COMMA')} + '원 결제하기'"/>
+        </form>
+    </div>
+</div>
+</html>

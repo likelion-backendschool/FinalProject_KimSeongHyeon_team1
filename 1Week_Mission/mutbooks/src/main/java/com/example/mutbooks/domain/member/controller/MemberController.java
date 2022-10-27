@@ -3,8 +3,10 @@ package com.example.mutbooks.domain.member.controller;
 import com.example.mutbooks.domain.member.annotation.LoginUser;
 import com.example.mutbooks.domain.member.dto.SessionDto;
 import com.example.mutbooks.domain.member.dto.SignUpFormDto;
+import com.example.mutbooks.domain.member.entity.Member;
 import com.example.mutbooks.domain.member.service.ModifyService;
 import com.example.mutbooks.domain.member.service.SignUpService;
+import com.example.mutbooks.global.annotation.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,8 +19,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,11 +31,18 @@ import javax.servlet.http.HttpServletResponse;
 public class MemberController {
 
     private final SignUpService signUpService;
-    private final ModifyService modifyService;
 
     /* 로그인 후 메인화면*/
     @GetMapping("/home")
-    public String showHome(Model model) {
+    public String showHome(@CurrentUser Member member, Model model, HttpServletRequest request, HttpServletResponse response) {
+        /* uuid로 쿠키값을 준 뒤 세션을 구분하기 위해 사용*/
+        UUID uuid = UUID.randomUUID();
+        Cookie cookie = new Cookie("userLogin", uuid.toString());
+        response.addCookie(cookie);
+
+        HttpSession session = request.getSession(true);
+        session.setAttribute(uuid.toString(), member.getUsername());
+
         return "home";
     }
 
@@ -52,7 +64,7 @@ public class MemberController {
 
     @PostMapping("/member/join")
     public String doSignUp(@Validated @ModelAttribute SignUpFormDto signUpFormDto,
-                           BindingResult bindingResult) {
+                           BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) {
 
         if (bindingResult.hasErrors()) {
             return "member/member_join";
@@ -68,7 +80,16 @@ public class MemberController {
             return "member/member_join";
         }
 
-        return "redirect:login";
+        /* uuid로 쿠키값을 준 뒤 세션을 구분하기 위해 사용*/
+        UUID uuid = UUID.randomUUID();
+        Cookie cookie = new Cookie("userLogin", uuid.toString());
+        response.addCookie(cookie);
+
+        HttpSession session = request.getSession(true);
+        session.setAttribute(uuid.toString(), signUpFormDto.getUsername());
+
+
+        return "redirect:/home";
     }
     /* 회원정보 수정*/
     @GetMapping("/member/modify")
