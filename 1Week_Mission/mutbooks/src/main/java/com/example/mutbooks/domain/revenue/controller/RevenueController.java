@@ -1,5 +1,13 @@
 package com.example.mutbooks.domain.revenue.controller;
 
+import com.example.mutbooks.domain.order.entity.Order;
+import com.example.mutbooks.domain.order.entity.enumulation.OrderStatus;
+import com.example.mutbooks.domain.order.entity.enumulation.OrderType;
+import com.example.mutbooks.domain.order.service.OrderService;
+import com.example.mutbooks.domain.pay.entity.enumulation.PayStatus;
+import lombok.RequiredArgsConstructor;
+import org.apache.catalina.Store;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,7 +18,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+@Controller
+@RequiredArgsConstructor
 public class RevenueController {
+
+    private final OrderService orderService;
+
+
     @ModelAttribute("orderStatus")
     public OrderStatus[] orderStatuses() {
         return OrderStatus.values();
@@ -19,46 +33,27 @@ public class RevenueController {
     public PayStatus[] payStatuses() {
         return PayStatus.values();
     }
-    @ModelAttribute("payType")
-    public PayType[] payTypes() {
-        return PayType.values();
-    }
     @ModelAttribute("orderType")
     public OrderType[] orderTypes() {
         return OrderType.values();
     }
-    /*매장관리 라우팅페이지*/
-    @GetMapping("/{storeSN}/admin/store/management")
-    public String showHomeMgmt(Model model , @PathVariable String storeSN){
-        Store store = storeService.findBySerialNumber(storeSN);
-        model.addAttribute("store", store);
-        model.addAttribute("storeSN" , storeSN);
-        return "storeMgmt/mgmtHome";
-    }
 
     /*주문내역 페이지*/
-    @GetMapping("/{storeSN}/admin/store/management/order")
-    public String showTotalOrderList(Model model , @PathVariable String storeSN){
-        Store store = storeService.findBySerialNumber(storeSN);
-        model.addAttribute("store", store);
-        model.addAttribute("storeSN" , storeSN);
-        /*스토어넘버로 모든 주문 내역을 가져온다.*/
-        List<Order> orderLists = orderService.findAllOrderByStoreSN(storeSN);
+    @GetMapping("{username}/adm/rebate/rebateOrderItemList")
+    public String showTotalOrderList(Model model, @PathVariable String username){
+        List<Order> orderLists = orderService.findAllUsername(username);
         model.addAttribute("orderLists", orderLists);
-        return "storeMgmt/orderList";
+        return "revenue/orderList";
     }
 
 
     /*주문내역 상세 페이지*/
-    @GetMapping("/{storeSN}/admin/store/management/order/{orderId}")
-    public String showTotalOrderDetail(Model model , @PathVariable String storeSN, @PathVariable Long orderId){
-        Store store = storeService.findBySerialNumber(storeSN);
-        model.addAttribute("store", store);
-        model.addAttribute("storeSN" , storeSN);
+    @GetMapping("/{username}/adm/rebate/rebateOrderItemList/{orderId}")
+    public String showTotalOrderDetail(Model model , @PathVariable String username, @PathVariable Long orderId){
         /*해당 id의 order 객체만을 가져옴*/
         Order findOrder = orderService.findById(orderId);
         model.addAttribute("findOrder", findOrder);
-        return "storeMgmt/orderDetail";
+        return "revenue/orderDetail";
     }
 
     /*매출관리 페이지*/

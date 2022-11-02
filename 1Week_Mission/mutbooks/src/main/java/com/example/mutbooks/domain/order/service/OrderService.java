@@ -73,4 +73,8 @@ public class OrderService {
 
         cartService.cancelOrder(order.getUsername());
     }
+
+    public List<Order> findAllUsername(String username) {
+        return orderRepository.findAllByUsernameOrderByOrderedAtAsc(username);
+    }
 }
