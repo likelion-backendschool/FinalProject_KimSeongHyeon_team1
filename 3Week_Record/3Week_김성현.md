@@ -65,7 +65,10 @@ Spring boot + gradle + data JPA + Spring Security + mysql + ajax + Thymeleaf
 3. 기능 구현 후 이슈 단위로 개선할 점 피드백하기. + (참고, 설명, 리펙터링)    
 
 도서를 등록하는 사람을 작가라고 했을 때, 자신의 등록도서 매출내역을 볼 수 있도록 하는 기능이 필요하다고 생각했다.
-관리자는 모든 작가들의 출금을 관리하는 역할을 한다. 작가와 
+관리자는 모든 작가들의 출금을 관리하는 역할을 한다.
+
+<img width="1398" alt="image" src="https://user-images.githubusercontent.com/53210680/199414643-3ce7ba81-7df5-41a2-bc6d-f2909d550f9d.png">
+
 ---
 ### 이슈정리
 
