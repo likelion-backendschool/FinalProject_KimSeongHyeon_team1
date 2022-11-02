@@ -3,7 +3,7 @@
     <!-- 네비바-->
     <div th:replace ="nav_bar :: nav_barFragment"></div>
     <div class="page-name-head">
-        <h2 class="admin-page-name">주문 내역 상세</h2>
+        <h2 class="admin-page-name">정산 건별 내역</h2>
     </div>
     <div>
         <p>결제금액</p>
@@ -21,10 +21,6 @@
             <li class="list-group-item listDesc">
                 <div class="listDesc">주문 상태</div>
                 <div class="listValue"th:text="${findOrder.orderStatus.description}"></div>
-            </li>
-            <li class="list-group-item listDesc">
-                <div class="listDesc">결제 방식</div>
-                <div class="listValue"th:text="${findOrder.payType.getDescription()}"></div>
             </li>
             <li class="list-group-item listDesc">
                 <div class="listDesc">결제 상태</div>
