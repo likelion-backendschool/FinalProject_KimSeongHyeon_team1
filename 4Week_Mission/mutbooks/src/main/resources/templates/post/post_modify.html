@@ -1,0 +1,52 @@
+<html layout:decorate="~{layout}" xmlns="http://www.w3.org/1999/html">
+<div layout:fragment="content" class="container my-3">
+    <!-- 네비바-->
+    <div th:replace ="nav_bar :: nav_barFragment"></div>
+    <h2>BBS</h2>
+    <main class="form-signin" style="max-width: 100%;">
+        <div class="container border rounded flex-md-row mb-4 shadow-sm h-md-250">
+            <form>
+                <h1 class="h3 m-3 fw-normal">글수정</h1>
+                <input type="hidden" id="id" th:value="${post.id}">
+                <div class="form-floating m-3">
+                    <input type="text" th:value="${post.subject}" class="form-control" id="title" placeholder="제목을 입력하세요." required>
+                    <label for="title">제목</label>
+                </div>
+                <div class="form-floating m-3">
+                    <textarea class="form-control" th:text="${post.content}" rows="5" id="content" style="height: 450px;"></textarea>
+                    <label for="content">내용</label>
+                </div>
+
+            </form>
+            <button class="w-100 btn btn-lg btn-success" id="btn-update" style="max-width: 250px;" th:onclick='modify()'>수정완료</button>
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+                function modify() {
+                    let id = $("#id").val();
+
+                    let data = {
+                        title: $("#title").val(),
+                        content: $("#content").val()
+                    }
+
+                    $.ajax({
+                        type: "PUT",
+                        url: "/api/post/" + id + "/modify",
+                        data: JSON.stringify(data),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        complete: function () {
+                            alert("글수정이 완료되었습니다.");
+                            window.location.href = 'http://localhost:8080/post/list';
+                        }
+                    }).fail(function (err) {
+                        alert(JSON.stringify(err));
+                    });
+                }
+                /*]]>*/
+            </script>
+        </div>
+    </main>
+
+</div>
+</html>
